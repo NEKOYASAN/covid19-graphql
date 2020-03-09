@@ -1,0 +1,94 @@
+type Query {
+    datas: Datas
+}
+
+
+
+type Datas {
+    contacts: Contacts
+    quarents: Querents
+    patients: Patients
+    patients_summary: Patients_summary
+    discharges: Discharges
+    discharges_summary: Discharges_summary
+    inspections: Inspections
+    inspections_summary: Inspections_summary
+    better_patients_summary: Better_patients_summary
+    last_update: String
+    main_summary: Main_summary
+}
+
+type Contacts {
+    date: String
+    data: [Contact]
+}
+
+type Contact {
+    date: String
+    short_date: String
+    subtotal: Int
+}
+
+type Querents {
+    date: String
+    data: [Querent]
+}
+
+type Querent {
+    date: String
+    short_date: String
+    subtotal: Int
+}
+
+type Patients {
+    date: String
+    data: [Patient]
+}
+
+type Patient {
+    no: String
+    date: String
+    age: String
+    place: String
+    other_patient: String
+    contact_person: String
+}
+
+type Patients_summary {
+    date: String
+    data: [Patient_summary]
+}
+
+type Patient_summary {
+    date: String
+    subtotal: Int
+}
+
+type Discharges {
+    date: String
+
+}
+
+type Discharges_summary {
+    date: String
+
+}
+
+type Inspections {
+    date: String
+
+}
+
+type Inspections_summary {
+    date: String
+
+}
+
+type Better_patients_summary {
+    date: String
+
+}
+
+type Main_summary {
+    date: String
+}
