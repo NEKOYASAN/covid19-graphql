@@ -1,13 +1,143 @@
 const {GraphQLServer} = require('graphql-yoga');
-const contacts = require('./datas/contacts.json');
-const current_patients = require('./datas/current_patients.json');
-const discharges_summary = require('./datas/discharges_summary.json');
-const inspections = require('./datas/inspections.json');
-const last_update = require('./datas/last_update.json');
-const patients = require('./datas/patients.json');
-const patients_summary = require('./datas/patients_summary.json');
-const querents = require('./datas/querents.json');
+const fs = require('fs');
+const contacts_filepath = './src/datas/contacts.json';
+const current_patients_filepath = './src/datas/current_patients.json';
+const discharges_summary_filepath = './src/datas/discharges_summary.json';
+const inspections_filepath = './src/datas/inspections.json';
+const last_update_filepath = './src/datas/last_update.json';
+const patients_filepath = './src/datas/patients.json';
+const patients_summary_filepath = './src/datas/patients_summary.json';
+const querents_filepath = './src/datas/querents.json';
+var contacts = null;
+var current_patients = null;
+var discharges_summary = null;
+var inspections= null;
+var last_update = null;
+var patients = null;
+var patients_summary = null;
+var querents= null;
+function reload_contacts() {
+    fs.readFile(contacts_filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        contacts = JSON.parse(data);
+    })
+}
+function reload_current_patients(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        current_patients = JSON.parse(data);
+    })
+}
+function reload_discharges_summary(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        discharges_summary = JSON.parse(data);
+    })
+}
+function reload_inspections(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        inspections = JSON.parse(data);
+    })
+}
+function reload_last_update(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        last_update = JSON.parse(data);
+    })
+}
+function reload_patients(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        patients = JSON.parse(data);
+    })
+}
+function reload_patients_summary(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        patients_summary = JSON.parse(data);
+    })
+}
+function reload_querents(filepath) {
+    fs.readFile(filepath, 'utf8', function(err, data) {
+        if (err) {
+            throw err;
+        }
+        querents = JSON.parse(data);
+    })
+}
 
+reload_contacts(contacts_filepath);
+reload_current_patients(current_patients_filepath);
+reload_discharges_summary(discharges_summary_filepath);
+reload_inspections(inspections_filepath);
+reload_last_update(last_update_filepath);
+reload_patients(patients_filepath);
+reload_patients_summary(patients_summary_filepath);
+reload_querents(querents_filepath);
+// 設定ファイルを監視するロジック
+// watchFileして、更新日時が新しかったら再読み込みする
+fs.watchFile(contacts_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_contacts(contacts_filepath);
+    }
+});
+
+fs.watchFile(current_patients_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_current_patients(current_patients_filepath);
+    }
+});
+
+fs.watchFile(discharges_summary_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_discharges_summary(discharges_summary_filepath);
+    }
+});
+
+fs.watchFile(inspections_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_inspections(inspections_filepath);
+    }
+});
+
+fs.watchFile(last_update_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_last_update(last_update_filepath);
+    }
+});
+
+fs.watchFile(patients_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_patients(patients_filepath);
+    }
+});
+
+fs.watchFile(patients_summary_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_patients_summary(patients_summary_filepath);
+    }
+});
+
+fs.watchFile(querents_filepath, function(curr, prev) {
+    if (curr.mtime > prev.mtime) {
+        reload_querents(querents_filepath);
+    }
+});
 const resolvers = {
     Query: {
         contacts: (obj, args, context, info) => {
