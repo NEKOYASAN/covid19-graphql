@@ -1,47 +1,56 @@
 type Query {
-    datas: Datas
-}
-
-
-
-type Datas {
     contacts: Contacts
-    quarents: Querents
-    patients: Patients
-    patients_summary: Patients_summary
-    discharges: Discharges
+    current_patients: Current_patients
     discharges_summary: Discharges_summary
     inspections: Inspections
-    inspections_summary: Inspections_summary
-    better_patients_summary: Better_patients_summary
     last_update: String
-    main_summary: Main_summary
+    patients: Patients
+    patients_summary: Patients_summary
+    querents: Querents
 }
 
 type Contacts {
-    date: String
+    last_update: String
     data: [Contact]
 }
 
 type Contact {
     date: String
-    short_date: String
     subtotal: Int
 }
 
-type Querents {
-    date: String
-    data: [Querent]
+type Current_patients {
+    last_update: String
+    data: [Current_patient]
 }
 
-type Querent {
+type Current_patient {
+    dete: String
+    subtotal: Int
+}
+
+type Discharges_summary {
+    last_update: String
+    data: [Discharge_summary]
+}
+
+type Discharge_summary {
     date: String
-    short_date: String
+    subtotal: Int
+}
+
+type Inspections {
+    last_update: String
+    data: [Discharge_summary]
+}
+
+type Inspection {
+    date: String
     subtotal: Int
 }
 
 type Patients {
-    date: String
+    last_update: String
     data: [Patient]
 }
 
@@ -50,12 +59,11 @@ type Patient {
     date: String
     age: String
     place: String
-    other_patient: String
-    contact_person: String
+    sex: String
 }
 
 type Patients_summary {
-    date: String
+    last_update: String
     data: [Patient_summary]
 }
 
@@ -64,31 +72,17 @@ type Patient_summary {
     subtotal: Int
 }
 
-type Discharges {
-    date: String
-
+type Querents {
+    last_update: String
+    data: [Querent]
 }
 
-type Discharges_summary {
+type Querent {
     date: String
-
+    subtotal: Int
 }
 
-type Inspections {
-    date: String
 
-}
 
-type Inspections_summary {
-    date: String
 
-}
 
-type Better_patients_summary {
-    date: String
-
-}
-
-type Main_summary {
-    date: String
-}
