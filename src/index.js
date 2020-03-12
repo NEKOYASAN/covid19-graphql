@@ -1,5 +1,7 @@
 const {GraphQLServer} = require('graphql-yoga');
 const fs = require('fs');
+const simpleGit = require('simple-git')('./src/datas');
+const cron = require('node-cron');
 const contacts_filepath = './src/datas/contacts.json';
 const current_patients_filepath = './src/datas/current_patients.json';
 const discharges_summary_filepath = './src/datas/discharges_summary.json';
@@ -138,6 +140,10 @@ fs.watchFile(querents_filepath, function(curr, prev) {
         reload_querents(querents_filepath);
     }
 });
+
+function gitpull() {
+    simpleGit.pull();
+}
 const resolvers = {
     Query: {
         contacts: (obj, args, context, info) => {
@@ -174,4 +180,10 @@ const server = new GraphQLServer(
         resolvers,
     }
 );
-server.start(() => console.log(`Server is running on http://localhost:4000`));
+
+cron.schedule('*/1 * * * *', () => {
+    gitpull();
+    console.log('gitpull')
+});
+
+server.start({port: 80},() => console.log(`Server is running on http://localhost`));
