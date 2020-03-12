@@ -186,4 +186,4 @@ cron.schedule('*/1 * * * *', () => {
     console.log('gitpull')
 });
 
-server.start({port: 80},() => console.log(`Server is running on http://localhost`));
+server.start({port: process.env.PORT},() => console.log(`Server is running on http://localhost`));
