@@ -25,7 +25,7 @@ type Current_patients {
 }
 
 type Current_patient {
-    dete: String
+    date: String
     subtotal: Int
 }
 
