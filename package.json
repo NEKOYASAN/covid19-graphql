@@ -1,4 +1,19 @@
 {
+  "name": "covid19-graphql",
+  "description": "covid19-graphQL ==== covid19の北海道に関する情報をgraphQLで提供するサーバです",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nekoya3/covid19-graphql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nekoya3/covid19-graphql/issues"
+  },
+  "homepage": "https://github.com/Nekoya3/covid19-graphql#readme",
   "scripts": {
     "start": "node ./src/index.js"
   },
